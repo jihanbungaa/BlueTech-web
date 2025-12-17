@@ -579,6 +579,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+function scrollToSolutions() {
+  document.getElementById("solutions").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+// Scroll reveal animation
+const reveals = document.querySelectorAll(".reveal");
+
+window.addEventListener("scroll", () => {
+  reveals.forEach(el => {
+    const windowHeight = window.innerHeight;
+    const revealTop = el.getBoundingClientRect().top;
+
+    if (revealTop < windowHeight - 100) {
+      el.classList.add("active");
+    }
+  });
+});
 
 
 // Scroll progress bar, parallax, back-to-top, and testimonial tilt
@@ -654,4 +673,39 @@ document.addEventListener('DOMContentLoaded', () => {
     updateProgress(); updateParallax(); toggleBackToTop();
 })();
 
+const vmCards = document.querySelectorAll(".reveal");
 
+window.addEventListener("scroll", () => {
+  vmCards.forEach(card => {
+    const windowHeight = window.innerHeight;
+    const cardTop = card.getBoundingClientRect().top;
+
+    if (cardTop < windowHeight - 100) {
+      card.classList.add("active");
+    }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+        // Observer untuk animasi Scroll Reveal
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1 // Mulai animasi ketika 10% elemen terlihat
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Hentikan observasi setelah muncul
+                }
+            });
+        }, observerOptions);
+
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
+        });
+    });
